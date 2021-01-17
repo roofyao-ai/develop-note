@@ -36,6 +36,12 @@ if let components = URLComponents(string: "http://www.baidu.com") {
 .autocapitalization(.none)
 ```
 
+### 视觉适配
+#### 忽略边缘安全区域
+```swift
+.edgesIgnoringSafeArea(.all) // .bottom, .top ...
+```
+
 ## UIKit
 ### WKWebView
 把浏览器内的播放器播放设置为内联播放（默认为false，即全屏播放）
