@@ -1,4 +1,4 @@
-# iOS Swift UI & Swift & OC & UIKit常用代码
+# iOS Swift UI & Swift & OC & UIKit常用代码和配置
 
 ## 系统功能
 ### 获取用户当前系统设置语言
@@ -23,6 +23,16 @@ if let components = URLComponents(string: "http://www.baidu.com") {
     }
 }
 ```
+### 工程配置http访问权限
+苹果限制了对http的访问，如果app想要访问，必须在工程配置文件`Info.plist`中添加如下文本：
+```xml
+<key>NSAppTransportSecurity</key>
+ <dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+ </dict>
+```
+`Info.plist`需要用文本代码编辑 (source code) 的方式打开。
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
