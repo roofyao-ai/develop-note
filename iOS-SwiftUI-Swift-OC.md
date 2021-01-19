@@ -54,7 +54,7 @@ if let components = URLComponents(string: "http://www.baidu.com") {
 
 ## UIKit
 ### WKWebView
-把浏览器内的播放器播放设置为内联播放（默认为false，即全屏播放）
+#### 把浏览器内的播放器播放设置为内联播放（默认为false，即全屏播放）
 ```swift
 let preferences = WKPreferences()		
 let configuration = WKWebViewConfiguration()
@@ -63,5 +63,12 @@ configuration.preferences = preferences
 // 设置为内联播放
 configuration.allowsInlineMediaPlayback = true 
 
-let webView = WKWebView(frame: .zero, configuration: configuration)
+let webView = WKWebView(frame: .zero, 
+                        configuration: configuration)
+```
+#### 加载本地html文本
+```swift
+let content = "<html>content</html>" // 指定文本
+let url = Bundle.main.bundleURL
+webView.loadHTMLString(content, baseURL: url)
 ```
