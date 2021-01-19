@@ -72,3 +72,15 @@ let content = "<html>content</html>" // 指定文本
 let url = Bundle.main.bundleURL
 webView.loadHTMLString(content, baseURL: url)
 ```
+
+## 基础类型
+### String
+#### 替换字符串
+用`replacingOccurrences`函数。
+```swift
+let title = "hello, world."
+let newTitle = title.replacingOccurrences(
+                        of: ".",
+                        with: "!")
+print(newTitle) // 输出结果： hello, world!
+```
