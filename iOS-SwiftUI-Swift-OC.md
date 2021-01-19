@@ -4,7 +4,8 @@
 ### 获取用户当前系统设置语言
 ```swift
 private func currentUserLanguage() -> String {
-    guard let languages = UserDefaults.standard.object(forKey: "AppleLanguages") as? NSArray else {
+    guard let languages = UserDefaults.standard.object(
+                                        forKey: "AppleLanguages") as? NSArray else {
         return ""
     }
     if languages.count == 0 {
@@ -83,4 +84,15 @@ let newTitle = title.replacingOccurrences(
                         of: ".",
                         with: "!")
 print(newTitle) // 输出结果： hello, world!
+```
+### Error
+如何获取`Error`的错误码
+```swift
+let nsError = error as NSError
+print("\(nsError.code)")
+```
+`kCFURLErrorCannotFindHost`这类错误码常量在swift中如何获得
+```swift
+let code = CFNetworkErrors.cfurlErrorCannotFindHost.rawValue
+print("\(code)") // 打印-1003
 ```
