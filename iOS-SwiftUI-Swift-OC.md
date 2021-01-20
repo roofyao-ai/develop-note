@@ -86,7 +86,8 @@ let newTitle = title.replacingOccurrences(
 print(newTitle) // 输出结果： hello, world!
 ```
 ### Error
-如何获取`Error`的错误码
+#### 如何获取回调函数中`Error`的错误码
+注意，前提条件是`error is NSError`
 ```swift
 let nsError = error as NSError
 print("\(nsError.code)")
@@ -95,4 +96,15 @@ print("\(nsError.code)")
 ```swift
 let code = CFNetworkErrors.cfurlErrorCannotFindHost.rawValue
 print("\(code)") // 打印-1003
+```
+### struct
+#### 把struct引用传递给函数参数
+需要用`inout`关键字
+```swift
+func increase(_ number: inout Int) {
+    number += 1
+}
+var number = 0
+increase(&number)
+print("number = \(number)") // 打印：number = 1
 ```
