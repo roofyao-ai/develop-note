@@ -98,7 +98,7 @@ webView.loadHTMLString(content, baseURL: url)
 ```
 #### 取消长按预览
 设置属性`allowsLinkPreview`
-```
+```swift
 // wkWebView 为 WKWebView 类型
 wkWebView.allowsLinkPreview = false
 ```
@@ -138,7 +138,7 @@ print("\(code)") // 打印-1003
 ```
 ### struct
 #### 把struct引用传递给函数参数
-需要用`inout`关键字
+struct属于值类型，需要用`inout`关键字，以下例子用Int类型，struct同理。
 ```swift
 func increase(_ number: inout Int) {
     number += 1
