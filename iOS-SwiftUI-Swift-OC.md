@@ -34,6 +34,29 @@ if let components = URLComponents(string: "http://www.baidu.com") {
  </dict>
 ```
 `Info.plist`需要用文本代码编辑 (source code) 的方式打开。
+### 多语言
+#### 添加语言
+`xcode`→`点击项目`→`Info`→`Localizations`→`+号`
+#### App名称
+新建一个.strings文件：
+`新建文件`→`InfoPlist.strings`→`右侧帮助栏`→`Localization`
+点击展开文件后，可以看到多个语言的编辑环境，文件内容编辑示例：
+```
+CFBundleDisplayName = "网易云音乐";
+```
+其中，CFBundleDisplayName就是要显示的app名的key值，不要写错了。
+#### 字符串
+`新建文件`→`Localizable.strings`→`右侧帮助栏`→`Localization`
+点击展开文件后，可以看到多个语言的编辑环境，文件内容编辑示例：
+```
+"open in new tab" = "新窗口中打开";
+```
+编写代码如下
+```swift
+let newTitle = NSLocalizedString("open in new tab", comment: "")
+print("\(newTitle)")
+```
+以上示例会打印不同语言文件下的`open in new tab`对应的值。
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
@@ -73,7 +96,12 @@ let content = "<html>content</html>" // 指定文本
 let url = Bundle.main.bundleURL
 webView.loadHTMLString(content, baseURL: url)
 ```
-
+#### 取消长按预览
+设置属性`allowsLinkPreview`
+```
+// wkWebView 为 WKWebView 类型
+wkWebView.allowsLinkPreview = false
+```
 ## 基础类型
 ### String
 #### 替换字符串
