@@ -113,6 +113,17 @@ let newTitle = title.replacingOccurrences(
                         with: "!")
 print(newTitle) // 输出结果： hello, world!
 ```
+#### url编解码
+函数`addingPercentEncoding`和`removingPercentEncoding`
+```swift
+let text = "小明"
+if let encodedData = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
+    print("\(encodedData)") // 打印：%E5%B0%8F%E6%98%8E
+    if let decodedData = encodedData.removingPercentEncoding {
+        print("decodedData: \(decodedData)") // 打印：小明
+    }
+}
+```
 ### Error
 #### 如何获取回调函数中`Error`的错误码
 注意，前提条件是`error is NSError`
