@@ -102,6 +102,25 @@ webView.loadHTMLString(content, baseURL: url)
 // wkWebView 为 WKWebView 类型
 wkWebView.allowsLinkPreview = false
 ```
+### UIScrollView
+#### 如何获得点击状态栏事件的回调
+点击状态栏事件后，`UIScrollView`的内容会自动滚动到顶部内容。
+要想激活或者关闭该功能，需要配置布尔属性`isScrollEnabled`，该属性默认为`true`。
+```swift
+scrollView.isScrollEnabled = true
+```
+要获得点击事件的回调，需要配置`scrollView`的`delegate`。
+```swift
+scrollView.delegate = self
+```
+其中，接受回调的对象必须支持协议`UIScrollViewDelegate`。
+每次用户点击状态栏，`UIScrollView`会回调 `scrollViewWillBeginDragging`
+```swift
+func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+    return true
+}
+```
+该回调会在用户每次点击顶部状态栏时发生。
 ## 基础类型
 ### String
 #### 替换字符串
