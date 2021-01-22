@@ -96,12 +96,56 @@ let content = "<html>content</html>" // 指定文本
 let url = Bundle.main.bundleURL
 webView.loadHTMLString(content, baseURL: url)
 ```
-#### 取消长按预览
+#### 取消长按链接预览
 设置属性`allowsLinkPreview`
 ```swift
 // wkWebView 为 WKWebView 类型
 wkWebView.allowsLinkPreview = false
 ```
+#### 自适配长按链接预览及弹出菜单
+首先要确保`allowsLinkPreview`的属性为`true`。
+```swift
+webView.allowsLinkPreview = true
+```
+配置`WKWebView`的回调协议`uiDelegate`，该协议名为`WKUIDelegate`。
+```swift
+webView.uiDelegate = self
+```
+接收`WKUIDelegate`的以下回调
+```swift
+func webView(_ webView: WKWebView, 
+            contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, 
+            completionHandler: @escaping (UIContextMenuConfiguration?) -> Void)
+```
+在回调中执行代码示例如下
+```swift
+completionHandler(
+    UIContextMenuConfiguration(identifier: nil, 
+                               previewProvider: { () -> UIViewController? in
+        if let url = elementInfo.linkURL {
+            return SFSafariViewController(url: url) // 需要 import SafariServices
+        } else {
+            return nil
+        }
+    }, actionProvider: { (_) -> UIMenu? in
+        let newTitle = NSLocalizedString("open in new tab", comment: "")
+        let newCommand = UIAction(title: newTitle, image: nil, state: .off) { (_) in
+            print("new")
+        }
+        let oldCommand = UIAction(title: "old", image: nil, state: .off) { (_) in
+            print("old")
+        }
+        return UIMenu(title: "", options: .destructive, children: [newCommand, oldCommand])
+    }))
+```
+解释一下，该回调通过开发者调用`completionHandler`传入**预览**和**菜单选项**的配置。
+其中`previewProvider`是预览部分，这部分依然需要你提供一个代码块，在代码块里返回一个预览Controller，可以用苹果提供的`SFSafariViewController`。如果要用到`SFSafariViewController`，那么需要在文件头加入
+```swift
+import SafariServices
+```
+因为是链接预览，参数`elementInfo`提供了`url`值可以用于传入。
+而`actionProvider`是菜单栏部分，这部分也需要你提供一个代码块，在代码里返回所需菜单栏。
+更多相关信息可以查阅苹果文档。
 ### UIScrollView
 #### 如何获得点击状态栏事件的回调
 点击状态栏事件后，`UIScrollView`的内容会自动滚动到顶部内容。
