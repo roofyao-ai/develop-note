@@ -146,6 +146,33 @@ import SafariServices
 因为是链接预览，参数`elementInfo`提供了`url`值可以用于传入。
 而`actionProvider`是菜单栏部分，这部分也需要你提供一个代码块，在代码里返回所需菜单栏。
 更多相关信息可以查阅苹果文档。
+### 用户点击链接跳转的事件捕捉
+通过`WKWebView`的`navigationDelegate`回调来捕捉，协议类型为`WKNavigationDelegate`。
+回调函数
+```swift
+func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        preferences: WKWebpagePreferences,
+        decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void)
+```
+通过该函数的参数`navigationAction`类型为`WKNavigationAction`，其属性`navigationType`类型为`WKNavigationType`，该类型为枚举类型
+```swift
+public enum WKNavigationType : Int {
+    case linkActivated = 0 // 点击链接时的navigationType将会是这个值
+    case formSubmitted = 1
+    case backForward = 2
+    case reload = 3
+    case formResubmitted = 4
+    case other = -1
+}
+```
+因此，在回调函数中实现如下即可捕获点击事件
+```swift
+if navigationAction.navigationType == .linkActivated {
+    print("有链接被点击了。")
+}
+```
 ### UIScrollView
 #### 如何获得点击状态栏事件的回调
 点击状态栏事件后，`UIScrollView`的内容会自动滚动到顶部内容。
