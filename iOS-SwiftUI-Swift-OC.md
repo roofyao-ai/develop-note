@@ -237,3 +237,28 @@ var number = 0
 increase(&number)
 print("number = \(number)") // 打印：number = 1
 ```
+## Swift语言特性
+### defer用法
+`defer`非常有用，除了在代码里在函数结束前要执行清理、关闭操作之外，还有另外一个重要用途，就是用来执行函数回调的completion handler。
+```swift
+func callFunc(completion: @escaping ()->()) {
+    defer {
+        completion()
+    }
+    return
+}
+```
+**强烈建议defer放在函数执行的开头。**
+因为`defer`是一个运行时机制，也就是说，当你在还未运行`defer`代码时`return`了，`defer`将不会运行。
+```swift
+// 错误代码示例
+func callFunc(completion: @escaping ()->()) {
+    if (somethingHappen) {
+        // 一旦进入这个分支，则completion将不会运行！
+        return  
+    }
+    defer {
+        completion()
+    }
+}
+

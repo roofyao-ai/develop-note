@@ -36,3 +36,29 @@ GeometryReader { g in
  </dict>
 ```
 `Info.plist`需要用文本代码编辑 (source code) 的方式打开。
+## defer里的代码不执行
+> 我把`defer`代码放在函数最后，有时候没有执行？
+
+示例
+```swift
+func callFunc(completion: @escaping ()->()) {
+	if (somethingHappen) {
+        return  
+    }
+    defer {
+        completion()
+    }
+}
+```
+出现该问题的原因是`defer`机制是运行时处理的，如果在`defer`命令未执行前函数提前`return`了，则`defer`内的代码也不会运行。所以**强烈建议defer放在函数执行的开头。**
+正确的代码应该是
+```swift
+func callFunc(completion: @escaping ()->()) {
+    defer {
+        completion()
+    }
+	if (somethingHappen) {
+        return  
+    }
+}
+```
