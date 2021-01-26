@@ -249,6 +249,12 @@ var number = 0
 increase(&number)
 print("number = \(number)") // 打印：number = 1
 ```
+### Image
+#### 把`UIKit`的`UIImage`转为`Image`
+Image构造函数自带
+```swift
+let image = Image(uiImage: uiImage)
+```
 ## Swift语言特性
 ### defer用法
 `defer`非常有用，除了在代码里在函数结束前要执行清理、关闭操作之外，还有另外一个重要用途，就是用来执行函数回调的completion handler。
@@ -273,4 +279,19 @@ func callFunc(completion: @escaping ()->()) {
         completion()
     }
 }
+```
 
+### 各种常量写法
+#### 多进制
+代码示例
+```swift
+let i = 10 // 十进制
+let x = 0x1f // 十六进制
+let o = 0o27 // 八进制 
+let b = 0b0010 // 二进制
+```
+#### 数字的辅助线
+代码示例
+```swift
+let oneMillion = 1_000_000
+```
