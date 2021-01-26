@@ -173,6 +173,18 @@ if navigationAction.navigationType == .linkActivated {
     print("有链接被点击了。")
 }
 ```
+#### 获取快照图片
+函数`takeSnapshot`
+```swift
+wkWebView.takeSnapshot(with: WKSnapshotConfiguration()) { (image, error) in
+    if let error = error {
+        print("发生错误: \(error)")
+    }
+    if let image = image {
+        print("获得图片 = \(image)")
+    }
+}
+```
 ### UIScrollView
 #### 如何获得点击状态栏事件的回调
 点击状态栏事件后，`UIScrollView`的内容会自动滚动到顶部内容。
