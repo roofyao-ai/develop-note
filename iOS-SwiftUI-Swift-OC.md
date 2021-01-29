@@ -57,6 +57,16 @@ let newTitle = NSLocalizedString("open in new tab", comment: "")
 print("\(newTitle)")
 ```
 以上示例会打印不同语言文件下的`open in new tab`对应的值。
+### 线程相关
+#### 延迟执行
+可以用`DispatchQueue`
+```swift
+let waitTime: TimeInterval = 10 // 等待时间，10秒
+// 本例中要延迟执行的代码在主线程执行，可以自行更改为后台线程
+DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+    // 执行想要延迟的代码
+}
+```
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
