@@ -61,7 +61,7 @@ print("\(newTitle)")
 #### 延迟执行
 可以用`DispatchQueue`
 ```swift
-let waitTime: TimeInterval = 10.0
+let waitTime: TimeInterval = 10
 // 本例中要延迟执行的代码在主线程执行，可以自行更改为后台线程
 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
     // 执行想要延迟的代码
