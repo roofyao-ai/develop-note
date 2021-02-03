@@ -92,17 +92,17 @@ import SwiftUI
 
 @main
 struct App: App {
-	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 }
 
 class AppDelegate: NSObject {
 }
 
 extension AppDelegate: UIApplicationDelegate {
-	func application(_ application: UIApplication, 
-            supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-		return [.portrait, .landscapeLeft]
-	}
+  func application(_ application: UIApplication, 
+    supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+      return [.portrait, .landscapeLeft]
+  }
 }
 ```
 
