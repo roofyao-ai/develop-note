@@ -85,6 +85,26 @@ DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
 ```swift
 .edgesIgnoringSafeArea(.all) // .bottom, .top ...
 ```
+### 响应`UIApplicationDelegate`回调
+完整代码示例如下
+```swift
+import SwiftUI
+
+@main
+struct App: App {
+	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+}
+
+class AppDelegate: NSObject {
+}
+
+extension AppDelegate: UIApplicationDelegate {
+	func application(_ application: UIApplication, 
+            supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+		return [.portrait, .landscapeLeft]
+	}
+}
+```
 
 ## UIKit
 ### WKWebView
