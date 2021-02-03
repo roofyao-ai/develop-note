@@ -67,6 +67,44 @@ DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
     // 执行想要延迟的代码
 }
 ```
+### 检测设备方向
+示例代码如下，用一个完整的类封装
+```swift
+import Foundation
+import UIKit
+
+class DeviceOrientation {
+	static let instance = DeviceOrientation()
+	private weak var observer: NSObjectProtocol!
+	private var _orientation: UIDeviceOrientation = .unknown
+	var orientation: UIDeviceOrientation {
+		return _orientation
+	}
+	
+	private init() {
+		observer = NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification,
+														  object: nil, queue: nil ) { [weak self] notification in
+			guard let self = self else {
+				return
+			}
+			
+			guard let device = notification.object as? UIDevice else {
+				return
+			}
+			
+			if device.orientation.isPortrait || device.orientation.isLandscape {
+				self._orientation = device.orientation
+			}
+		}
+	}
+	
+	deinit {
+		if observer != nil {
+			NotificationCenter.default.removeObserver(observer!)
+		}
+	}
+}
+```
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
