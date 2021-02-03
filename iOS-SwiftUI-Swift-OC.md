@@ -82,8 +82,9 @@ class DeviceOrientation {
 	}
 	
 	private init() {
-		observer = NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification,
-														  object: nil, queue: nil ) { [weak self] notification in
+		observer = NotificationCenter.default.addObserver(
+                    forName: UIDevice.orientationDidChangeNotification,
+			        object: nil, queue: nil ) { [weak self] notification in
 			guard let self = self else {
 				return
 			}
