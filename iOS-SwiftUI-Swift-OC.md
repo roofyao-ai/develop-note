@@ -273,6 +273,22 @@ func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 }
 ```
 该回调会在用户每次点击顶部状态栏时发生。
+### 分享功能
+关键类`UIActivityViewController`，代码示例如下
+```swift
+func share(url: URL) {
+    let items: [Any] = [url]
+    let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
+    activity.excludedActivityTypes = [
+        .addToReadingList, .print, .assignToContact, .saveToCameraRoll, .addToReadingList,
+        .openInIBooks, .markupAsPDF
+    ]
+    UIApplication.shared.windows[0].rootViewController?.present(activity, animated: true) {
+    }
+}
+```
+以上，items可以配置`URL`，`UIImage`和`String`三种类型组合。
+`excludedActivityTypes`属性可以配置不显示在分享页面里的辅助功能选项，选项元素为`UIActivity.ActivityType`类型。
 ## 基础类型
 ### String
 #### 替换字符串
