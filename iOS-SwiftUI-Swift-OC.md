@@ -144,6 +144,16 @@ extension AppDelegate: UIApplicationDelegate {
   }
 }
 ```
+### Navigation
+#### 设置导航栏的导航按钮、标题颜色
+通过 `UINavigationBar.appearance()` 进行配置。
+```swift
+let nav = UINavigationBar.appearance()
+let color = UIColor.red
+nav.tintColor = color
+nav.largeTitleTextAttributes = [.foregroundColor: color]
+nav.titleTextAttributes = [.foregroundColor: color]
+```
 
 ## UIKit
 ### WKWebView
