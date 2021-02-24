@@ -299,6 +299,23 @@ func share(url: URL) {
 ```
 以上，items可以配置`URL`，`UIImage`和`String`三种类型组合。
 `excludedActivityTypes`属性可以配置不显示在分享页面里的辅助功能选项，选项元素为`UIActivity.ActivityType`类型。
+### 系统弹窗
+#### 弹出多选项栏
+主要类`UIAlertController`和`UIAlertAction`，示例代码如下
+```swift
+let controller = UIAlertController(title: "title", message: "message", preferredStyle: .actionSheet)
+let button = UIAlertAction(title: "Button", style: .default) { (action) in
+    // 响应代码
+}
+let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+    // 响应代码
+}
+controller.addAction(button)
+controller.addAction(cancel)
+let rootController = UIApplication.shared.windows[0].rootViewController!
+rootController.present(controller, animated: true) { }
+```
+
 ## 基础类型
 ### String
 #### 替换字符串
