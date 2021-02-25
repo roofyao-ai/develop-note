@@ -106,6 +106,25 @@ class DeviceOrientation {
 	}
 }
 ```
+### 持久化存储方案
+#### UserDefaults
+存储全局的`Key-Value`键值对。
+写入
+```swift
+UserDefaults.standard.setValue("value", forKey: "key")
+```
+读取
+```swift
+// 读取字符串
+let result = UserDefaults.standard.string(forKey: "key")
+print(result) // 打印value
+```
+除了支持`string`外还支持`integer`等多种元数据类型。
+
+写入后的立刻同步到本地持久化环境
+```swift
+UserDefaults.standard.synchronize()
+```
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
