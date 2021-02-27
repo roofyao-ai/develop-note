@@ -335,7 +335,7 @@ let rootController = UIApplication.shared.windows[0].rootViewController!
 rootController.present(controller, animated: true) { }
 ```
 #### 弹出确认框
-和 **弹出多选项栏** 类似，区别是`preferredStyle`参数选择`.alert`
+和 **弹出多选项栏** 类似，区别是`preferredStyle`参数选择`.alert`，示例代码如下
 ```swift
 let alert = UIAlertController(title: "title",
                               message: "message",
