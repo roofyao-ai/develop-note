@@ -334,7 +334,15 @@ controller.addAction(cancel)
 let rootController = UIApplication.shared.windows[0].rootViewController!
 rootController.present(controller, animated: true) { }
 ```
-
+#### 弹出确认框
+和 **弹出多选项栏** 类似，区别是`preferredStyle`参数选择`.alert`
+```swift
+let alert = UIAlertController(title: "title",
+                              message: "message",
+                              preferredStyle: .alert)
+alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+UIApplication.shared.windows[0].rootViewController!.present(alert, animated: true) { }
+```
 ## 基础类型
 ### String
 #### 替换字符串
