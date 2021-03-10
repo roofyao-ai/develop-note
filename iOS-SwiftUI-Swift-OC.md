@@ -173,7 +173,13 @@ nav.tintColor = color
 nav.largeTitleTextAttributes = [.foregroundColor: color]
 nav.titleTextAttributes = [.foregroundColor: color]
 ```
-
+### TextField
+#### 主动让键盘消失
+需要通过`UIApplication`提供的方法，代码示例如下
+```swift
+UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                to: nil, from: nil, for: nil)
+```
 ## UIKit
 ### WKWebView
 #### 把浏览器内的播放器播放设置为内联播放（默认为false，即全屏播放）
