@@ -180,6 +180,19 @@ nav.titleTextAttributes = [.foregroundColor: color]
 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                 to: nil, from: nil, for: nil)
 ```
+### 切圆角和描边
+通过修饰符`clipShape`进行切割，并通过`overlay`修饰符进行描边，示例代码如下
+```swift
+// 定义尺寸 size
+let size = CGSize(width: 40, height: 40)
+// 定义形状 round，为椭圆形，可以替换为圆形
+let round = Path(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: 4)
+// 示例代码是个白色界面
+Color.white
+    .frame(width: size.width, height: size.height)
+    .clipShape(round) // 切割
+    .overlay(round.stroke(Color.gray.opacity(0.5), lineWidth: 1)) // 描边
+```
 ## UIKit
 ### WKWebView
 #### 把浏览器内的播放器播放设置为内联播放（默认为false，即全屏播放）
