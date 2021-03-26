@@ -125,6 +125,25 @@ print(result) // 打印value
 ```swift
 UserDefaults.standard.synchronize()
 ```
+### plist资源读取
+读取plist资源需要先知道plist中的根数据是数组还是字典。以下分两个案例
+案例1，根数据为数组
+```swift
+// 数据是数组的案例
+let path = Bundle.main.path(forResource: "Array", ofType: "plist")!
+if let array = NSArray(contentsOfFile: path) {
+    print("\(array)")
+}
+```
+案例2，根数据为字典，比如配置文件Info.plist
+```swift
+// 数据是数组的案例
+let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
+if let dict = NSDictionary(contentsOfFile: path) {
+    print("\(dict)")
+}
+```
+
 ## SwiftUI
 ### TextField
 #### 去掉键盘自动纠错
