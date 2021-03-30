@@ -143,6 +143,22 @@ if let dict = NSDictionary(contentsOfFile: path) {
     print("\(dict)")
 }
 ```
+### md5编码
+通过`CryptoKit`框架可以实现，无需自己实现
+```swift
+import CryptoKit
+```
+实现代码如下
+```swift
+let host = "http://www.baidu.com"
+let digest = Insecure.MD5.hash(data: host.data(using: .utf8)!)
+let md5 = digest.map { String(format: "%02x", $0) }.joined()
+print("\(md5)")
+```
+打印
+```
+bfa89e563d9509fbc5c6503dd50faf2e
+```
 
 ## SwiftUI
 ### TextField
