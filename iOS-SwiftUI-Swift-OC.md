@@ -409,16 +409,17 @@ let newTitle = title.replacingOccurrences(
 print(newTitle) // 输出结果： hello, world!
 ```
 #### 正则表达式
-核心类`NSRegularExpression`
+核心类`NSRegularExpression`。
 ```swift
 let str = "hello, (Swift)world.)"
 do {
     let regex = "\\(.*?\\)"
     let pattern = try NSRegularExpression(pattern: regex, options: [])
-    let range = NSRange(location: 0, length: str.count)
+    // 注意以下一行需要用str.utf16
+    let range = NSRange(location: 0, length: str.utf16.count)
     let matchResults = pattern.matches(in: str, options: [], range: range)
     for matchResult in matchResults {
-        if let subRange = str.range(from: matchResult.range) {
+        if let subRange = Range(matchResult.range, in: str) {
             print("\(str[subRange])")
         }
     }
