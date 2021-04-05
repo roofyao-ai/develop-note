@@ -408,7 +408,21 @@ let newTitle = title.replacingOccurrences(
                         with: "!")
 print(newTitle) // 输出结果： hello, world!
 ```
+### NSRange转换为String中的Range
+通过`Range`构造函数即可
+```swift
+let string = "hello, world"
+let nsRange = NSMakeRange(0, string.count)
+if let range = Range(nsRange, in: string) {
+    print("\(string[range])")
+}
+```
+打印
+```
+hello, world
+```
 #### 正则表达式
+##### 简单获取
 核心类`NSRegularExpression`。
 ```swift
 let str = "hello, (Swift)world.)"
