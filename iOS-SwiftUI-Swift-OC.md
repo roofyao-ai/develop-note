@@ -444,6 +444,30 @@ do {
 ```
 (Swift)
 ```
+##### 分组捕获
+分组捕获通过匹配模式中的括号分组结果（类型为`NSTextCheckingResult`）的`range(at:)`，`at`的参数为`Int`，具体分组从1开始计数，因为0代表的是整个匹配结果。
+```swift
+let str = "_Swift_ _Language_"
+do {
+    let regex = "_(.*?)_" // 正则模式只有一对括号，即一个分组
+    let pattern = try NSRegularExpression(pattern: regex, options: [])
+    let range = NSRange(location: 0, length: str.utf16.count)
+    let matchResults = pattern.matches(in: str, options: [], range: range)
+    
+    for (index, matchResult) in matchResults.enumerated() {
+        // at: 1捕获的是第一个括号分组
+        if let subRange = Range(matchResult.range(at: 1), in: str) {
+            print("\(index) \(str[subRange])")
+        }
+    }
+} catch {
+}
+```
+打印
+```
+0 Swift
+1 Language
+```
 #### url编解码
 函数`addingPercentEncoding`和`removingPercentEncoding`
 ```swift
