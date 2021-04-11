@@ -24,6 +24,46 @@ if let components = URLComponents(string: "http://www.baidu.com") {
     }
 }
 ```
+### 设置禁止上传iCloud
+### 写入
+通过`URL`的`setResourceValues`方法，示例
+```swift
+let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+// 指定的文件或文件夹：path必须存在，否则会抛异常
+let path = documentPath + "/test"
+var url = URL(fileURLWithPath: path)
+do {
+    var values = URLResourceValues()
+    values.isExcludedFromBackup = true
+    try url.setResourceValues(values)
+} catch {
+    print("\(error)")
+}
+```
+**注意，如果 文件/文件夹 不存在，将会抛出异常**
+```
+Error Domain=NSCocoaErrorDomain Code=4 "The file “test_dir” doesn’t exist." UserInfo={NSURLUnsetValueKeysKey=(
+    NSURLIsExcludedFromBackupKey
+)
+```
+### 读取
+读取是否上传到iCloud的属性为`isExcludedFromBackup`，该值为布尔值，为`false`表示没有禁止上传iCloud，反之则相反，示例
+```swift
+let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+let path = documentPath + "/test"
+let url = URL(fileURLWithPath: path)
+do {
+    let values = try url.resourceValues(forKeys: .init(arrayLiteral: .isExcludedFromBackupKey))
+    if let isExcludedFromBackup = values.isExcludedFromBackup {
+        print("isExcludedFromBackup: \(isExcludedFromBackup)")
+    } else {
+        print("isExcludedFromBackup: nil")
+    }
+} catch {
+    print("\(error)")
+}
+```
+**读取的文件/文件夹即使不存在，只要是合法的文件路径，也不会抛出异常，`isExcludedFromBackup`将会返回`false`，这点和写入是不同的。**
 ### 工程配置http访问权限
 苹果限制了对http的访问，如果app想要访问，必须在工程配置文件`Info.plist`中添加如下文本：
 ```xml
@@ -447,17 +487,14 @@ do {
 ##### 分组捕获
 分组捕获通过匹配模式中的括号分组结果（类型为`NSTextCheckingResult`）的`range(at:)`，`at`的参数为`Int`，具体分组从1开始计数，因为0代表的是整个匹配结果。
 ```swift
-let str = "_Swift_ _Language_"
+let str = "_Swift_"
 do {
-    let regex = "_(.*?)_" // 正则模式只有一对括号，即一个分组
+    let regex = "_(.*?)_"
     let pattern = try NSRegularExpression(pattern: regex, options: [])
     let range = NSRange(location: 0, length: str.utf16.count)
-    let matchResults = pattern.matches(in: str, options: [], range: range)
-    
-    for (index, matchResult) in matchResults.enumerated() {
-        // at: 1捕获的是第一个括号分组
+    if let matchResult = pattern.firstMatch(in: str, options: [], range: range) {
         if let subRange = Range(matchResult.range(at: 1), in: str) {
-            print("\(index) \(str[subRange])")
+            print("\(str[subRange])")
         }
     }
 } catch {
@@ -465,8 +502,7 @@ do {
 ```
 打印
 ```
-0 Swift
-1 Language
+Swift
 ```
 #### url编解码
 函数`addingPercentEncoding`和`removingPercentEncoding`
